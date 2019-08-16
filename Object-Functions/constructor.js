@@ -21,3 +21,4 @@ console.log(john, jane, mark);
 john.calculateAge();
 
 console.log(john.lastname, jane.lastname, mark.lastname);
+console.log(john.__proto__ === Persion.prototype);
