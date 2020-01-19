@@ -133,7 +133,14 @@ var UIController = (function () {
             fieldsArr[0].focus();
         },
         displayBudget: function(budget) {
-
+            document.querySelector(DOMStrings.budgetLabel).textContent = budget.budget;
+            document.querySelector(DOMStrings.incomeLabel).textContent = budget.totalInc;
+            document.querySelector(DOMStrings.expenseLabel).textContent = budget.totalExp;
+            if(budget.precentage > 0) {
+                document.querySelector(DOMStrings.precentageLabel).textContent = budget.precentage + '%';
+            } else{
+                document.querySelector(DOMStrings.precentageLabel).textContent = '---';
+            }
         },
     }
 })();
@@ -151,7 +158,7 @@ var controller = (function (budgetCtrl, UICtrl) {
     var updateBudget = function() {
         budgetCtrl.calculateBudget();
         var budget = budgetCtrl.getBudget();
-        console.log('budget obj: ', budget);
+        UICtrl.displayBudget(budget);
     };
     var ctrlAddItem = function () {
         var input = UICtrl.getInput();
@@ -166,6 +173,12 @@ var controller = (function (budgetCtrl, UICtrl) {
     return {
         init: function () {
             console.log('application started!');
+            UICtrl.displayBudget({
+                budget: 0,
+                precentage: -1,
+                totalInc: 0,
+                totalExp: 0
+            });
             setupEventlistener();
         }
     }
